@@ -9,6 +9,7 @@ body {
   background: var(--back);
   color: var(--fore);
   display: flex;
+  width: 210mm;
 }
 #main {
   flex: 70%;
