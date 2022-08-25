@@ -41,7 +41,7 @@ i { display: inline-block !important; }
   margin-bottom: 0;
 }
 ul {
-  padding-left: 2em;
+  padding-left: 1em;
 }
 .bricks > div {
   display: inline-block;
@@ -66,4 +66,8 @@ ul {
   position: absolute;
   bottom: 1em;
   left: 1em;
+}
+a {
+  color: var(--fore);
+  text-decoration: none;
 }
