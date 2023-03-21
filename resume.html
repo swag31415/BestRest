@@ -10,129 +10,71 @@
   <link rel="stylesheet" href="https://swag31415.github.io/Portfolio/css/fontawesome-free-6.0.0-beta2-web/css/all.min.css">
 </head>
 
-<body>
+<body id="app">
   <div id='main'>
-    <h1>Swagatam Das</h1>
-    <p>With 50+ projects in a variety of domains I am confident that I have experience in everything you'll need.</p>
+    <h1>{{ name }}</h1>
+    <p>{{ statement }}</p>
     <h2>Education</h2>
-    <div class='section'>
+    <div class='section' v-for="school in education">
       <div class='border'></div>
       <div class='edu'>
-        <h3>University of Colorado Boulder,
-          <span style='font-weight: bold;'>Bachelor of Science in Computer Science</span>
+        <h3>{{ school.name }},
+          <span style='font-weight: bold;'>{{ school.degree }}</span>
         </h3>
-        <h3>Expected May 2023</h3>
+        <h3>{{ school.end }}</h3>
       </div>
-      <p>Major GPA: 3.582</p>
+      <p>{{ school.desc }}</p>
     </div>
     <h2>Relevant Projects</h2>
-    <div class='work'>
-      <h3><span style='font-weight: bold;'>Software Engineer for Boeing Sponsored Design Project</span></h3>
+    <div v-for="proj in projects">
+      <div class='work'>
+        <h3><span style='font-weight: bold;'>{{ proj.name }}</span></h3>
+      </div>
+      <ul>
+        <li v-for="pt in proj.points">{{ pt }}</li>
+      </ul>
     </div>
-    <ul>
-      <li>Worked with a team of 8 mechanical engineers as the sole computer scientist</li>
-      <li>Developed a robust error correction algorithm through probability analysis for inadvertent deployment using data science skills and previous experience with similar sensors in robotics</li>
-      <li>Designed a 3D simulation environment in Webots to simulate an actual plane crash in the ocean and test the entire electromechanical and software system from start to finish</li>
-      <li>Developed intuitive charts, tables, and plots to effectively communicate the project's progress and results to Boeing in the PDR and CDR presentations and reports</li>
-    </ul>
-    <div class='work'>
-      <h3><span style='font-weight: bold;'>Low-Latency Object Recognition for Autonomous Vehicles</span></h3>
-    </div>
-    <ul>
-      <li>Designed and trained a convolutional neural network (CNN) using TensorFlow and Python to classify objects in real-time for autonomous vehicle applications</li>
-      <li>Utilized techniques such as data augmentation, batch normalization, and dropout regularization to improve model generalization and prevent overfitting.</li>
-      <li>Deployed the model on an NVIDIA Jetson Xavier for low-latency object recognition with a frame rate of 20 fps.</li>
-    </ul>
-    <div class='work'>
-      <h3><span style='font-weight: bold;'>GoDaddy Microbusiness Density Forecasting</span></h3>
-    </div>
-    <ul>
-      <li>Participated in a GoDaddy-sponsored Kaggle competition on Microbusiness Density Forecasting, with a goal to forecast next month's microbusiness density.</li>
-      <li>Utilized Gradient Boosting techniques, including lightgbm, xgboost, and catboost, as part of a powerful VotingRegressor ensemble model.</li>
-      <li>Conducted thorough preliminary data analysis of every county in the dataset, using blacklists and bias vectors to ensure the highest possible accuracy.</li>
-      <li>Employed sophisticated feature engineering to optimize the performance of the model, leading to a nearly 5x improvement in model performance.</li>
-      <li>Achieved an SMAPE score of 4.3706, representing a significant improvement over earlier iterations of the model, which used Decision Forests and achieved scores closer to 4.6.</li>
-    </ul>
     <h2>Professional Experience</h2>
-    <div class='work'>
-      <h3><span style='font-weight: bold;'>Full-Stack Developer</span>, Metro Atlanta Security Systems (MASS)</h3>
-      <h3>Nov 2021 - July 2022</h3>
+    <div v-for="job in jobs">
+      <div class='work'>
+        <h3><span style='font-weight: bold;'>{{ job.role }}</span>, {{ job.company }}</h3>
+        <h3>{{ job.start }} - {{ job.end }}</h3>
+      </div>
+      <ul>
+        <li v-for="pt in job.points">{{ pt }}</li>
+      </ul>
     </div>
-    <ul>
-      <li>Employed data cleaning, transformation, and normalization, to manage three disparate datasets and derive KPIs.</li>
-      <li>Used Decision Trees and Regression models to analyze advertising data and discover optimal sales strategies, resulting in a 30% increase in revenue.</li>
-      <li>Created Tableau and D3.js dashboards to monitor KPIs, providing actionable insights to management.</li>
-      <li>Collaborated with outsourced UX designers, product managers, and QA analysts to deliver high-quality features on time and within budget.</li>
-    </ul>
-    <div class='work'>
-      <h3><span style='font-weight: bold;'>Tech Sales Specialist</span>, Target</h3>
-      <h3>May 2021 - Aug 2021</h3>
-    </div>
-    <ul>
-      <li>Developed a web-app to assist myself and my coworkers in our day-to-day activities, streamlining operations and increasing productivity.</li>
-    </ul>
-    <div class='work'>
-      <h3><span style='font-weight: bold;'>Resident Advisor (RA)</span>, University of Colorado Boulder</h3>
-      <h3>Oct 2019 - Mar 2020</h3>
-    </div>
-    <ul>
-      <li>Planned and executed monthly events involving at least 20 residents, showcasing creativity and attention to detail in setting up, advertising, and running fun activities.</li>
-      <li>Greeted guests and maintained friendly relations with over 400 residents, fostering a welcoming and inclusive community atmosphere.</li>
-    </ul>
   </div>
   <div id='side'>
-    <img src="./best.jpeg" class="profile_pic">
+    <img :src="portrait" class="profile_pic">
     <div class='boats'>
-      <div><i class="far fa-envelope"></i> <a href="mailto:swda9655@colorado.edu">swda9655@colorado.edu</a></div>
-      <div><i class="fas fa-phone-alt"></i> 404-916-1000</div>
-      <div><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/swag-das/">linkedin.com/in/swag-das</a></div>
-      <div><i class="fas fa-globe"></i> <a href="https://swag31415.github.io/Portfolio/">swag31415.github.io/Portfolio</a></div>
-      <div><i class="fas fa-map-marker-alt"></i> Boulder, Colorado</div>
+      <div><i class="far fa-envelope"></i> <a :href="'mailto:' + email">{{ email }}</a></div>
+      <div><i class="fas fa-phone-alt"></i> {{ phone }}</div>
+      <div><i class="fab fa-linkedin"></i> <a :href="'https://www.' + linkedin">{{ linkedin }}</a></div>
+      <div><i class="fas fa-globe"></i> <a :href="'https://' + portfolio">{{ portfolio }}</a></div>
+      <div><i class="fas fa-map-marker-alt"></i> {{ location }}</div>
     </div>
     <h3>Relevant Coding Languages</h3>
     <div class='bricks'>
-      <div>Python</div>
-      <div>C</div>
-      <div>C++</div>
-      <div>Java</div>
-      <div>R</div>
-      <div>Javascript</div>
-      <div>MATLAB</div>
+      <div v-for="lang in languages">{{ lang }}</div>
     </div>
     <h3>Relevant Tools / Platforms</h3>
     <div class='bricks'>
-      <div>Redis</div>
-      <div>MongoDB</div>
-      <div>GCP</div>
-      <div>AWS</div>
-      <div>JIRA</div>
-      <div>Docker</div>
-      <div>Git</div>
-      <div>Kubernetes</div>
-      <div>TensorFlow</div>
-      <div>PyTorch</div>
-      <div>Tableau</div>
-      <div>OpenCV</div>
-      <div>Node</div>
-      <div><span class="latex">L <sup>a</sup> T <sub>e</sub> X</span></div>
+      <div v-for="tool in tools">{{ tool }}</div>
     </div>
     <h3>Relevant Courses</h3>
     <div class='bricks'>
-      <div>Machine Learning</div>
-      <div>Artificial Intelligence</div>
-      <div>Intro to Robotics</div>
-      <div>Numerical Computation</div>
-      <div>Advanced Data Science</div>
-      <div>Technical Communication</div>
+      <div v-for="course in courses">{{ course }}</div>
     </div>
     <h3>Human Languages</h3>
     <div class='bricks'>
-      <div>English</div>
-      <div>Hindi</div>
-      <div>Bengali</div>
+      <div v-for="lang in human_languages">{{ lang }}</div>
     </div>
-    <p>Like the resume? I wrote an AI that assisted me in writing it, and all the styles are done by me using pure HTML and CSS.</p>
   </div>
+  <!-- Vue.js -->
+  <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
+  <!-- Our Scripts -->
+  <script src="js/main.js"></script>
 </body>
 
 </html>
