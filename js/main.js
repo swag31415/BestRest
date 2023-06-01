@@ -14,25 +14,26 @@ const DATA = {
   phone: '404-916-1000',
   linkedin: 'linkedin.com/in/swag-das',
   portfolio: 'swag31415.github.io/Portfolio',
-  location: 'Boulder, Colorado',
+  location: 'Atlanta, Georgia',
   education: [
-    School('University of Colorado Boulder', 'Bachelor of Science in Computer Science', '', 'Expected May 2023', 'Major GPA: 3.582'),
+    School('University of Colorado Boulder', 'Bachelor of Science in Computer Science', '', 'May 2023', ''),
   ],
   projects: [
-    Project('Software Engineer for Boeing Sponsored Design Project', [
-      'Worked with a team of 8 mechanical engineers as the sole computer scientist',
-      'Developed a robust error correction algorithm through probability analysis for inadvertent deployment using data science skills and previous experience with similar sensors in robotics',
-      'Created a complete code diagram and a custom 2D simulation environment using paper.js, allowing for real-time code testing and validation of error correction algorithms',
-      "Developed intuitive charts, tables, and plots to effectively communicate the project's progress and results to Boeing in the PDR and CDR presentations and reports",
-      'Utilized rapid programming skills to have the system up and running within an hour when the pressure sensor received was not as expected',
+    Project('Research on Tenure-Track Women Professors', [
+      "Conducted research as part of the YOU'RE@CU research program to investigate beliefs about why tenure-track women professors leave the tenure track.",
+      'Analyzed a longitudinal dataset of 10,000 tenure-track professors across various demographics to compare accuracy of beliefs on the subject across different groups.',
+      "Used statistical methods and machine learning algorithms to identify patterns and trends in the data, and conducted hypothesis testing to validate findings.",
     ]),
-    Project('Social Media Web App', [
-      "Designed and implemented a responsive and visually appealing frontend using Bootstrap and JQuery, with features such as a newsfeed, profile pages, and search functionality.",
-      'Automated software builds, unit tests, integration tests, deployment, and installations using a DevOps tool chain (Jenkins, Nexus, Artifactory), reducing deployment time by 40%.',
-      'Developed guidelines and best practices for cloud-oriented development and implementations, including containers and container orchestration, resulting in improved efficiency and scalability.',
-      'Implemented AWS solutions design and deployment of applications, resulting in a significant reduction in infrastructure costs.',
-      'Utilized Ansible to develop scripts and templates to build development systems, enabling the automated creation of development environments.',
-      'Developed and sustained an Agile methodology for the deployment, administration, maintenance, and upgrading of cloud environments, resulting in improved efficiency and collaboration.',
+    Project('Drone and Robot Ice Cream Delivery System', [
+      "Designed and implemented software for a delivery system that uses drones and robots to deliver ice cream to children.",
+      'Used computer vision, motion profiles, LIDAR, inverse kinematics, and search algorithms to optimize the delivery process and ensure efficient and reliable service.',
+    ]),
+    Project('Weather-based Traffic Prediction', [
+      'Leveraged datasets on traffic history and weather patterns from Jan 2018 to Oct 2020 to predict traffic conditions at various locations over the same time period in a Kaggle competition.',
+      'Achieved a winning Macro F1-Score of 0.52 using DecisionTreeRegressor, surpassing other popular models like Random Forest and XGBoost.',
+      'Experimented with state-of-the-art models like RNNs and external datasets.',
+      'Applied feature engineering techniques such as smoothing weather patterns and utilizing lag variables to optimize model performance.',
+      'Demonstrated a deep understanding of feature selection, hyperparameter tuning, and cross-validation techniques to create a reliable and robust prediction model.',
     ]),
   ],
   jobs: [
