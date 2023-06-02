@@ -43,10 +43,10 @@ i { display: inline-block !important; }
 ul {
   padding-left: 1em;
   margin-top: 0em;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.2em;
 }
 ul > li {
-  margin-bottom: 0.2em;
+  margin-bottom: 0.1em;
 }
 .bricks > div {
   display: inline-block;
@@ -78,19 +78,19 @@ a {
 }
 h1 {
   margin-top: 0em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.1em;
 }
 h2 {
   margin-top: 0em;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.1em;
 }
 h3 {
   margin-top: 0em;
-  margin-bottom: 0.1em; 
+  margin-bottom: 0em; 
 }
 p {
-  margin-top: 0.3em;
-  margin-bottom: 0.5em;
+  margin-top: 0em;
+  margin-bottom: 0.1em;
 }
 img.profile_pic {
   width: 100%;
