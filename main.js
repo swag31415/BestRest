@@ -1,6 +1,6 @@
 // Import the required Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,15 +28,29 @@ new Vue({
     signIn() {
       const auth = getAuth();
 
-      signInWithEmailAndPassword(auth, this.email, this.password)
+      setPersistence(auth, browserSessionPersistence)
+        .then(() => {
+          return signInWithEmailAndPassword(auth, this.email, this.password)
+        })
         .then((userCredential) => {
           // Login successful, do something here (e.g., redirect to another page)
-          console.log('User:', userCredential.user);
+          console.log('Logged in successfully');
         })
         .catch((error) => {
           // Login failed, display error message
           this.loginError = error.message;
         });
     }
+  },
+  mounted() {
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, redirect them
+        // Replace '/dashboard' with the URL of the page you want to redirect to
+        window.location.replace('/dashboard');
+      }
+    });
   }
 });
