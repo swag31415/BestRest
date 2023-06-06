@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sleek Page with Large Form</title>
+  <link rel="stylesheet" type="text/css" href="css/editor.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Welcome to the Sleek Page</h1>
+    </header>
+    <main>
+      <form>
+        <h2>Large Form</h2>
+        
+        <h3>Social Media</h3>
+        <div v-for="(social, index) in formData.social" :key="index" class="social-group">
+          <div class="form-group">
+            <label for="link">Link:</label>
+            <input type="text" :id="'link-' + index" :name="'link-' + index" v-model="social.link" required>
+          </div>
+          <div class="form-group">
+            <label for="logo">Logo:</label>
+            <input type="text" :id="'logo-' + index" :name="'logo-' + index" v-model="social.logo" required>
+          </div>
+          <button type="button" @click="removeSocial(index)">Remove Social Media</button>
+        </div>
+        
+        <button type="button" @click="addSocial">Add Social Media</button>
+        
+        <h3>Test Scores</h3>
+        <div v-for="(score, index) in formData.testScores" :key="index" class="score-group">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" :id="'name-' + index" :name="'name-' + index" v-model="score.name" required>
+          </div>
+          <div class="form-group">
+            <label for="score">Score:</label>
+            <input type="number" :id="'score-' + index" :name="'score-' + index" v-model="score.score" required>
+          </div>
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="text" :id="'date-' + index" :name="'date-' + index" v-model="score.date" required>
+          </div>
+          <div class="form-group">
+            <label for="link">Link:</label>
+            <input type="text" :id="'link-' + index" :name="'link-' + index" v-model="score.link">
+          </div>
+          <button type="button" @click="removeScore(index)">Remove Test Score</button>
+        </div>
+        
+        <button type="button" @click="addScore">Add Test Score</button>
+        
+        <h3>Emails</h3>
+        <div v-for="(email, index) in formData.emails" :key="index" class="email-group">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" :id="'email-' + index" :name="'email-' + index" v-model="email.email" required>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes:</label>
+            <ul>
+              <li v-for="(note, noteIndex) in email.notes" :key="noteIndex">
+                <input type="text" v-model="email.notes[noteIndex]">
+                <button type="button" @click="removeNote(email, noteIndex)">Remove</button>
+              </li>
+            </ul>
+            <button type="button" @click="addNote(email)">Add Note</button>
+          </div>
+          <button type="button" @click="removeEmail(index)">Remove Email</button>
+        </div>
+        
+        <button type="button" @click="addEmail">Add Email</button>
+        
+        <h3>Schools</h3>
+        <div v-for="(school, index) in formData.schools" :key="index" class="school-group">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" :id="'name-' + index" :name="'name-' + index" v-model="school.name" required>
+          </div>
+          <div class="form-group">
+            <label for="start">Start Date:</label>
+            <input type="text" :id="'start-' + index" :name="'start-' + index" v-model="school.start" required>
+          </div>
+          <div class="form-group">
+            <label for="end">End Date:</label>
+            <input type="text" :id="'end-' + index" :name="'end-' + index" v-model="school.end" required>
+          </div>
+          <div class="form-group">
+            <label for="transcript">Transcript:</label>
+            <input type="text" :id="'transcript-' + index" :name="'transcript-' + index" v-model="school.transcript">
+          </div>
+          <div class="form-group">
+            <label for="degree">Degree:</label>
+            <input type="text" :id="'degree-' + index" :name="'degree-' + index" v-model="school.degree">
+          </div>
+          <div class="form-group">
+            <label for="diploma">Diploma:</label>
+            <input type="text" :id="'diploma-' + index" :name="'diploma-' + index" v-model="school.diploma">
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes:</label>
+            <ul>
+              <li v-for="(note, noteIndex) in school.notes" :key="noteIndex">
+                <input type="text" v-model="school.notes[noteIndex]">
+                <button type="button" @click="removeSchoolNote(school, noteIndex)">Remove</button>
+              </li>
+            </ul>
+            <button type="button" @click="addSchoolNote(school)">Add Note</button>
+          </div>
+          <button type="button" @click="removeSchool(index)">Remove School</button>
+        </div>
+        
+        <button type="button" @click="addSchool">Add School</button>
+        
+        <h3>Jobs</h3>
+        <div v-for="(job, index) in formData.jobs" :key="index" class="job-group">
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="text" :id="'role-' + index" :name="'role-' + index" v-model="job.role" required>
+          </div>
+          <div class="form-group">
+            <label for="company">Company:</label>
+            <input type="text" :id="'company-' + index" :name="'company-' + index" v-model="job.company" required>
+          </div>
+          <div class="form-group">
+            <label for="start">Start Date:</label>
+            <input type="text" :id="'start-' + index" :name="'start-' + index" v-model="job.start" required>
+          </div>
+          <div class="form-group">
+            <label for="end">End Date:</label>
+            <input type="text" :id="'end-' + index" :name="'end-' + index" v-model="job.end" required>
+          </div>
+          <div class="form-group">
+            <label for="hours_week">Hours per Week:</label>
+            <input type="number" :id="'hours_week-' + index" :name="'hours_week-' + index" v-model="job.hours_week" required>
+          </div>
+          <div class="form-group">
+            <label for="social_desc">Social Description:</label>
+            <textarea :id="'social_desc-' + index" :name="'social_desc-' + index" v-model="job.social_desc"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="professional_desc">Professional Description:</label>
+            <textarea :id="'professional_desc-' + index" :name="'professional_desc-' + index" v-model="job.professional_desc"></textarea>
+          </div>
+          <button type="button" @click="removeJob(index)">Remove Job</button>
+        </div>
+        
+        <button type="button" @click="addJob">Add Job</button>
+        
+        <h3>Clubs</h3>
+        <div v-for="(club, index) in formData.clubs" :key="index" class="club-group">
+          <div class="form-group">
+            <label for="org">Organization:</label>
+            <input type="text" :id="'org-' + index" :name="'org-' + index" v-model="club.org" required>
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="text" :id="'role-' + index" :name="'role-' + index" v-model="club.role" required>
+          </div>
+          <div class="form-group">
+            <label for="start">Start Date:</label>
+            <input type="text" :id="'start-' + index" :name="'start-' + index" v-model="club.start" required>
+          </div>
+          <div class="form-group">
+            <label for="end">End Date:</label>
+            <input type="text" :id="'end-' + index" :name="'end-' + index" v-model="club.end" required>
+          </div>
+          <div class="form-group">
+            <label for="hours_week">Hours per Week:</label>
+            <input type="number" :id="'hours_week-' + index" :name="'hours_week-' + index" v-model="club.hours_week" required>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description:</label>
+            <textarea :id="'desc-' + index" :name="'desc-' + index" v-model="club.desc"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="sections">Sections:</label>
+            <ul>
+              <li v-for="(section, sectionIndex) in club.sections" :key="sectionIndex">
+                <input type="text" v-model="club.sections[sectionIndex]">
+                <button type="button" @click="removeSection(club, sectionIndex)">Remove</button>
+              </li>
+            </ul>
+            <button type="button" @click="addSection(club)">Add Section</button>
+          </div>
+          <button type="button" @click="removeClub(index)">Remove Club</button>
+        </div>
+        
+        <button type="button" @click="addClub">Add Club</button>
+        
+        <h3>Service Activities</h3>
+        <div v-for="(service, index) in formData.services" :key="index" class="service-group">
+          <div class="form-group">
+            <label for="org">Organization:</label>
+            <input type="text" :id="'org-' + index" :name="'org-' + index" v-model="service.org" required>
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="text" :id="'role-' + index" :name="'role-' + index" v-model="service.role" required>
+          </div>
+          <div class="form-group">
+            <label for="start">Start Date:</label>
+            <input type="text" :id="'start-' + index" :name="'start-' + index" v-model="service.start" required>
+          </div>
+          <div class="form-group">
+            <label for="end">End Date:</label>
+            <input type="text" :id="'end-' + index" :name="'end-' + index" v-model="service.end" required>
+          </div>
+          <div class="form-group">
+            <label for="hours_week">Hours per Week:</label>
+            <input type="number" :id="'hours_week-' + index" :name="'hours_week-' + index" v-model="service.hours_week" required>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description:</label>
+            <textarea :id="'desc-' + index" :name="'desc-' + index" v-model="service.desc"></textarea>
+          </div>
+          <button type="button" @click="removeService(index)">Remove Service Activity</button>
+        </div>
+        
+        <button type="button" @click="addService">Add Service Activity</button>
+        
+        <h3>Languages</h3>
+        <div v-for="(language, index) in formData.languages" :key="index" class="language-group">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" :id="'name-' + index" :name="'name-' + index" v-model="language.name" required>
+          </div>
+          <div class="form-group">
+            <label for="level">Level:</label>
+            <input type="text" :id="'level-' + index" :name="'level-' + index" v-model="language.level" required>
+          </div>
+          <button type="button" @click="removeLanguage(index)">Remove Language</button>
+        </div>
+        
+        <button type="button" @click="addLanguage">Add Language</button>
+        
+        <h3>Projects</h3>
+        <div v-for="(project, index) in formData.projects" :key="index" class="project-group">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" :id="'title-' + index" :name="'title-' + index" v-model="project.title" required>
+          </div>
+          <div class="form-group">
+            <label for="start">Start Date:</label>
+            <input type="text" :id="'start-' + index" :name="'start-' + index" v-model="project.start" required>
+          </div>
+          <div class="form-group">
+            <label for="end">End Date:</label>
+            <input type="text" :id="'end-' + index" :name="'end-' + index" v-model="project.end" required>
+          </div>
+          <div class="form-group">
+            <label for="hours_week">Hours per Week:</label>
+            <input type="number" :id="'hours_week-' + index" :name="'hours_week-' + index" v-model="project.hours_week" required>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description:</label>
+            <textarea :id="'desc-' + index" :name="'desc-' + index" v-model="project.desc"></textarea>
+          </div>
+          <button type="button" @click="removeProject(index)">Remove Project</button>
+        </div>
+        
+        <button type="button" @click="addProject">Add Project</button>
+        
+        <h3>Recommenders</h3>
+        <div v-for="(recommender, index) in formData.recommenders" :key="index" class="recommender-group">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" :id="'name-' + index" :name="'name-' + index" v-model="recommender.name" required>
+          </div>
+          <div class="form-group">
+            <label for="position">Position:</label>
+            <input type="text" :id="'position-' + index" :name="'position-' + index" v-model="recommender.position" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" :id="'email-' + index" :name="'email-' + index" v-model="recommender.email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" :id="'phone-' + index" :name="'phone-' + index" v-model="recommender.phone" required>
+          </div>
+          <button type="button" @click="removeRecommender(index)">Remove Recommender</button>
+        </div>
+        
+        <button type="button" @click="addRecommender">Add Recommender</button>
+        
+        <h3>Sections</h3>
+        <div v-for="(section, index) in formData.sections" :key="index" class="section-group">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" :id="'name-' + index" :name="'name-' + index" v-model="section.name" required>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes:</label>
+            <ul>
+              <li v-for="(note, noteIndex) in section.notes" :key="noteIndex">
+                <input type="text" v-model="section.notes[noteIndex]">
+                <button type="button" @click="removeNote(section, noteIndex)">Remove</button>
+              </li>
+            </ul>
+            <button type="button" @click="addNote(section)">Add Note</button>
+          </div>
+          <button type="button" @click="removeSection(index)">Remove Section</button>
+        </div>
+        
+        <button type="button" @click="addSection">Add Section</button>
+        
+        <h3>Notes</h3>
+        <div v-for="(note, index) in formData.notes" :key="index" class="note-group">
+          <div class="form-group">
+            <label for="text">Text:</label>
+            <input type="text" :id="'text-' + index" :name="'text-' + index" v-model="note.text" required>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes:</label>
+            <ul>
+              <li v-for="(subNote, subNoteIndex) in note.notes" :key="subNoteIndex">
+                <input type="text" v-model="note.notes[subNoteIndex]">
+                <button type="button" @click="removeSubNote(note, subNoteIndex)">Remove</button>
+              </li>
+            </ul>
+            <button type="button" @click="addSubNote(note)">Add Note</button>
+          </div>
+          <button type="button" @click="removeNote(index)">Remove Note</button>
+        </div>
+        
+        <button type="button" @click="addNote">Add Note</button>
+        
+        <h3>High School Courses</h3>
+        <div v-for="(course, index) in formData.hsCourses" :key="index" class="course-group">
+          <div class="form-group">
+            <label for="course">Course:</label>
+            <input type="text" :id="'course-' + index" :name="'course-' + index" v-model="course.course" required>
+          </div>
+          <div class="form-group">
+            <label for="semester">Semester:</label>
+            <input type="text" :id="'semester-' + index" :name="'semester-' + index" v-model="course.semester" required>
+          </div>
+          <div class="form-group">
+            <label for="grade_lvl">Grade Level:</label>
+            <input type="number" :id="'grade_lvl-' + index" :name="'grade_lvl-' + index" v-model="course.grade_lvl" required>
+          </div>
+          <div class="form-group">
+            <label for="grade">Grade:</label>
+            <input type="text" :id="'grade-' + index" :name="'grade-' + index" v-model="course.grade" required>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description:</label>
+            <textarea :id="'desc-' + index" :name="'desc-' + index" v-model="course.desc"></textarea>
+          </div>
+          <button type="button" @click="removeHsCourse(index)">Remove High School Course</button>
+        </div>
+        
+        <button type="button" @click="addHsCourse">Add High School Course</button>
+        
+        <h3>University Courses</h3>
+        <div v-for="(course, index) in formData.uniCourses" :key="index" class="course-group">
+          <div class="form-group">
+            <label for="course">Course:</label>
+            <input type="text" :id="'course-' + index" :name="'course-' + index" v-model="course.course" required>
+          </div>
+          <div class="form-group">
+            <label for="course_code">Course Code:</label>
+            <input type="text" :id="'course_code-' + index" :name="'course_code-' + index" v-model="course.course_code" required>
+          </div>
+          <div class="form-group">
+            <label for="semester">Semester:</label>
+            <input type="text" :id="'semester-' + index" :name="'semester-' + index" v-model="course.semester" required>
+          </div>
+          <div class="form-group">
+            <label for="credit_hrs">Credit Hours:</label>
+            <input type="number" :id="'credit_hrs-' + index" :name="'credit_hrs-' + index" v-model="course.credit_hrs" required>
+          </div>
+          <div class="form-group">
+            <label for="grade">Grade:</label>
+            <input type="text" :id="'grade-' + index" :name="'grade-' + index" v-model="course.grade" required>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description:</label>
+            <textarea :id="'desc-' + index" :name="'desc-' + index" v-model="course.desc"></textarea>
+          </div>
+          <button type="button" @click="removeUniCourse(index)">Remove University Course</button>
+        </div>
+        
+        <button type="button" @click="addUniCourse">Add University Course</button>
+        
+        <h3>Tools</h3>
+        <div v-for="(tool, index) in formData.tools" :key="index" class="tool-group">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" :id="'name-' + index" :name="'name-' + index" v-model="tool.name" required>
+          </div>
+          <div class="form-group">
+            <label for="level">Level:</label>
+            <input type="text" :id="'level-' + index" :name="'level-' + index" v-model="tool.level" required>
+          </div>
+          <button type="button" @click="removeTool(index)">Remove Tool</button>
+        </div>
+        
+        <button type="button" @click="addTool">Add Tool</button>
+        
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+    <footer>
+      <p>&copy; 2023 Sleek Page. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script src="js/editor.js"></script>
+</body>
+</html>
