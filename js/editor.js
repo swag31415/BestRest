@@ -1,210 +1,39 @@
-new Vue({
+const grammar = String.raw`
+start = m:header n:(br section)* o:(br subsection)* br? {return {...m, sections: Object.fromEntries(n.map(s => s[1])), sides: Object.fromEntries(o.map(s => s[1]))}}
+
+header = m:param+ {return Object.fromEntries(m)}
+section = m:h2 n:(subsection)* {return [m, Object.fromEntries(n)]}
+subsection = m:h3 h:header? d:details? lb* {return [m, {header: h, details: d}]}
+details = m:detail n:(lb detail)* {return [m, ...n.map(a => a[1])]}
+detail = "- " m:text {return m}
+
+h2 = "## " m:text lb+ {return m}
+h3 = "### " m:text lb+ {return m}
+
+param = k:label ":" v:text lb? {return [k,  v]}
+label = m:[^\n:-]+ {return m.join('').trim()}
+text = m:[^\n]+ {return m.join('').trim()}
+br = lb* "---" lb*
+lb = "\n"
+`;
+const parser = peg.generate(grammar)
+
+const app = new Vue({
   el: '#app',
   data: {
-    formData: {
-      social: [],
-      testScores: [],
-      emails: [],
-      schools: [],
-      jobs: [],
-      clubs: [],
-      services: [],
-      languages: [],
-      projects: [],
-      recommenders: [],
-      sections: [],
-      notes: [],
-      hsCourses: [],
-      uniCourses: [],
-      tools: []
-    }
+    text: '',
   },
-  methods: {
-    addSocial() {
-      this.formData.social.push({
-        link: '',
-        logo: ''
-      });
-    },
-    removeSocial(index) {
-      this.formData.social.splice(index, 1);
-    },
-    addScore() {
-      this.formData.testScores.push({
-        name: '',
-        score: null,
-        date: '',
-        link: ''
-      });
-    },
-    removeScore(index) {
-      this.formData.testScores.splice(index, 1);
-    },
-    addEmail() {
-      this.formData.emails.push({
-        email: '',
-        notes: []
-      });
-    },
-    removeEmail(index) {
-      this.formData.emails.splice(index, 1);
-    },
-    addNote(email) {
-      email.notes.push('');
-    },
-    removeNote(email, noteIndex) {
-      email.notes.splice(noteIndex, 1);
-    },
-    addSchool() {
-      this.formData.schools.push({
-        name: '',
-        start: '',
-        end: '',
-        transcript: '',
-        degree: '',
-        diploma: '',
-        notes: []
-      });
-    },
-    removeSchool(index) {
-      this.formData.schools.splice(index, 1);
-    },
-    addSchoolNote(school) {
-      school.notes.push('');
-    },
-    removeSchoolNote(school, noteIndex) {
-      school.notes.splice(noteIndex, 1);
-    },
-    addJob() {
-      this.formData.jobs.push({
-        role: '',
-        company: '',
-        start: '',
-        end: '',
-        hours_week: null,
-        social_desc: '',
-        professional_desc: ''
-      });
-    },
-    removeJob(index) {
-      this.formData.jobs.splice(index, 1);
-    },
-    addClub() {
-      this.formData.clubs.push({
-        org: '',
-        role: '',
-        start: '',
-        end: '',
-        hours_week: null,
-        desc: '',
-        sections: []
-      });
-    },
-    removeClub(index) {
-      this.formData.clubs.splice(index, 1);
-    },
-    addSection(club) {
-      club.sections.push('');
-    },
-    removeSection(club, sectionIndex) {
-      club.sections.splice(sectionIndex, 1);
-    },
-    addService() {
-      this.formData.services.push({
-        org: '',
-        role: '',
-        start: '',
-        end: '',
-        hours_week: null,
-        desc: ''
-      });
-    },
-    removeService(index) {
-      this.formData.services.splice(index, 1);
-    },
-    addLanguage() {
-      this.formData.languages.push({
-        name: '',
-        level: ''
-      });
-    },
-    removeLanguage(index) {
-      this.formData.languages.splice(index, 1);
-    },
-    addProject() {
-      this.formData.projects.push({
-        title: '',
-        start: '',
-        end: '',
-        hours_week: null,
-        desc: ''
-      });
-    },
-    removeProject(index) {
-      this.formData.projects.splice(index, 1);
-    },
-    addRecommender() {
-      this.formData.recommenders.push({
-        name: '',
-        position: '',
-        email: '',
-        phone: ''
-      });
-    },
-    removeRecommender(index) {
-      this.formData.recommenders.splice(index, 1);
-    },
-    addNote() {
-      this.formData.notes.push({
-        text: '',
-        notes: []
-      });
-    },
-    removeNote(index) {
-      this.formData.notes.splice(index, 1);
-    },
-    addSubNote(note) {
-      note.notes.push('');
-    },
-    removeSubNote(note, subNoteIndex) {
-      note.notes.splice(subNoteIndex, 1);
-    },
-    addHsCourse() {
-      this.formData.hsCourses.push({
-        course: '',
-        semester: '',
-        grade_lvl: null,
-        grade: '',
-        desc: ''
-      });
-    },
-    removeHsCourse(index) {
-      this.formData.hsCourses.splice(index, 1);
-    },
-    addUniCourse() {
-      this.formData.uniCourses.push({
-        course: '',
-        course_code: '',
-        semester: '',
-        credit_hrs: null,
-        grade: '',
-        desc: ''
-      });
-    },
-    removeUniCourse(index) {
-      this.formData.uniCourses.splice(index, 1);
-    },
-    addTool() {
-      this.formData.tools.push({
-        name: '',
-        level: ''
-      });
-    },
-    removeTool(index) {
-      this.formData.tools.splice(index, 1);
-    },
-    submitForm() {
-      // Code to submit the form data
+  computed: {
+    data() {
+      return parser.parse(this.text)
     }
   }
-});
+})
+
+
+// Fetch the Markdown file content
+fetch('resume.md')
+  .then(response => response.text())
+  .then(markdown => {
+    app.text = markdown;
+  })

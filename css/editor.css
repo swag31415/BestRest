@@ -1,132 +1,116 @@
+html,
 body {
-  font-family: Arial, sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-#app {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+.container {
+  display: flex;
+  height: 100vh;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 20px;
+.left {
+  flex: 1;
 }
 
-h1 {
-  font-size: 24px;
-  color: #333;
-}
-
-main {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-h2, h3 {
-  font-size: 20px;
-  color: #333;
-  margin-top: 30px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-input[type="text"],
-input[type="number"],
-textarea {
+.editor {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+  height: 100%;
 }
+
+/* Resume styles from here */
+
+:root {
+  --fore: #000000;
+  --back: #f2f0ed;
+  --accent: #00c504;
+}
+
+div.right {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 14px;
+  background: var(--back);
+  color: var(--fore);
+  display: flex;
+  width: 210mm;
+}
+#main {
+  flex: 70%;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+#side {
+  flex: 30%;
+  border-left: solid var(--accent) 1px;
+  padding-left: 1em;
+  padding-right: 1em;
+  position: relative;
+}
+
+.subsection_title {
+  display: flex;
+  justify-content: space-between;
+}
+.subsection_title > h3 {
+  display: inline;
+}
+
+.subsection_title :first-child {
+  flex: 50%;
+}
+
+.boats > div {
+  display: inline-block;
+  border-bottom: solid var(--accent) 1px;
+  padding: 4px;
+}
+i { display: inline-block !important; }
 
 ul {
-  padding-left: 20px;
-  list-style-type: disc;
+  padding-left: 1em;
+  margin-top: 0em;
+  margin-bottom: 0.2em;
+}
+ul > li {
+  margin-bottom: 0.1em;
 }
 
-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
+.bricks > div {
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 4px;
+  margin: 4px 1px;
 }
 
-button[type="submit"] {
-  background-color: #4CAF50;
+img.profile_pic {
+  width: 100%;
+  box-shadow: 2px 2px;
 }
 
-footer {
-  text-align: center;
-  margin-top: 30px;
+.ps {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
 }
-
-footer p {
-  color: #888;
+a {
+  color: var(--fore);
+  text-decoration: none;
 }
-
-/* Additional styling for sleek and modern look */
-
-header {
-  background-color: #333;
-  padding: 20px;
-}
-
 h1 {
-  color: #fff;
+  margin-top: 0em;
+  margin-bottom: 0.1em;
 }
-
-form {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+h2 {
+  margin-top: 0em;
+  margin-bottom: 0.1em;
 }
-
-label {
-  color: #888;
+h3 {
+  margin-top: 0em;
+  margin-bottom: 0em;
 }
-
-input[type="text"],
-input[type="number"],
-textarea {
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-}
-
-button {
-  background-color: #4CAF50;
-  color: #fff;
-}
-
-button[type="submit"] {
-  background-color: #333;
-}
-
-footer {
-  background-color: #333;
-  padding: 20px;
-}
-
-footer p {
-  color: #fff;
+p {
+  margin-top: 0em;
+  margin-bottom: 0.1em;
 }
