@@ -74,7 +74,7 @@ const app = new Vue({
           });
       } else {
         // User is not signed in
-        window.location.replace('/');
+        window.location.replace('/BestRest');
       }
     });
   },

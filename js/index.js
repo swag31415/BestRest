@@ -49,7 +49,7 @@ new Vue({
       if (user) {
         // User is signed in, redirect them
         // Replace '/dashboard' with the URL of the page you want to redirect to
-        window.location.replace('/editor.html');
+        window.location.replace('/BestRest/editor.html');
       }
     });
   }
