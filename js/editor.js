@@ -22,7 +22,9 @@ start = m:header n:(br section)* o:(br subsection)* br? {return {...m, sections:
 
 header = m:param+ {return Object.fromEntries(m)}
 section = m:h2 n:(subsection)* {return [m, Object.fromEntries(n)]}
-subsection = m:h3 h:header? d:details? lb* {return [m, {header: h, details: d}]}
+subsection = m:h3 h:header? d:details? s:descs? lb* {return [m, {header: h, details: d, desc:s}]}
+descs = m:(lb desc)* {return m.map(a => a[1])}
+desc = "> " m:text {return m}
 details = m:detail n:(lb detail)* {return [m, ...n.map(a => a[1])]}
 detail = "- " m:text {return m}
 
@@ -30,7 +32,7 @@ h2 = "## " m:text lb+ {return m}
 h3 = "### " m:text lb+ {return m}
 
 param = k:label ":" v:text lb? {return [k,  v]}
-label = m:[^\n:-]+ {return m.join('').trim()}
+label = m:[^\n:->]+ {return m.join('').trim()}
 text = m:[^\n]+ {return m.join('').trim()}
 br = lb* "---" lb*
 lb = "\n"
@@ -61,12 +63,13 @@ const app = new Vue({
           .then((docSnapshot) => {
             if (docSnapshot.exists()) {
               this.text = docSnapshot.data().text;
-            }
+              if (!this.text) throw new Error('empty document')
+            } else throw new Error('document doesn\'t exist')
           })
           .catch((error) => {
             console.log('Error getting document:', error);
             // Fetch the Markdown file content
-            fetch('resume.md')
+            fetch('/BestRest/resume.md')
               .then(response => response.text())
               .then(markdown => {
                 app.text = markdown;

@@ -66,11 +66,11 @@ div.right {
 }
 
 .boats > div {
-  display: inline-block;
+  display: flex;
   border-bottom: solid var(--accent) 1px;
   padding: 4px;
 }
-i { display: inline-block !important; }
+i { display: inline-block !important; padding-right: 4px;}
 
 ul {
   padding-left: 1em;

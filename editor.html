@@ -24,6 +24,9 @@
                 <h3 v-if="subsection.header && subsection.header.Start && subsection.header.End">{{ subsection.header.Start }} - {{ subsection.header.End }}</h3>  
                 <h3 v-if="subsection.header && subsection.header.Graduation">{{ subsection.header.Graduation }}</h3>  
               </div>
+              <div v-if="subsection.desc">
+                <p v-for="desc in subsection.desc">{{ desc }}</p>
+              </div>
               <ul v-if="subsection.details">
                 <li v-for="detail in subsection.details">{{ detail }}</li>
               </ul>
@@ -33,11 +36,11 @@
         <div id="side">
           <img :src="data.Portrait" class="profile_pic">
           <div class='boats'>
-            <div><i class="far fa-envelope"></i> <a :href="'mailto:' + data.Email">{{ data.Email }}</a></div>
-            <div><i class="fas fa-phone-alt"></i> {{ data.Phone }}</div>
-            <div><i class="fab fa-linkedin"></i> <a :href="'https://www.' + data.LinkedIn">{{ data.LinkedIn }}</a></div>
-            <div><i class="fas fa-globe"></i> <a :href="'https://' + data.Portfolio">{{ data.Portfolio }}</a></div>
-            <div><i class="fas fa-map-marker-alt"></i> {{ data.Location }}</div>
+            <div v-if="data.Email"><i class="far fa-envelope"></i> <a :href="'mailto:' + data.Email"><span>{{ data.Email }}</span></a></div>
+            <div v-if="data.Phone"><i class="fas fa-phone-alt"></i> <span>{{ data.Phone }}</span></div>
+            <div v-if="data.LinkedIn"><i class="fab fa-linkedin"></i> <a :href="'https://www.' + data.LinkedIn"><span>{{ data.LinkedIn }}</span></a></div>
+            <div v-if="data.Portfolio"><i class="fas fa-globe"></i> <a :href="'https://' + data.Portfolio"><span>{{ data.Portfolio }}</span></a></div>
+            <div v-if="data.Location"><i class="fas fa-map-marker-alt"></i> <span>{{ data.Location }}</span></div>
           </div>
           <div class="side" v-for="(side, side_name) in data.sides">
             <h3>{{ side_name }}</h3>
